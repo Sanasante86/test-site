@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>reCAPTCHA v3 Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <!-- Basically blank – just a tiny bit of debug output -->
+  <h1 style="font-size: 18px; font-weight: normal;">
+    reCAPTCHA v3 Test (page load)
+  </h1>
+  <p>Token (for debugging only):</p>
+  <pre id="recaptcha-token" style="word-wrap: break-word; white-space: pre-wrap;"></pre>
+
+  <!-- Load reCAPTCHA v3 with your site key -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6LeUQCIsAAAAANlCtMbYv4fLleOcqlEkmAISnavW"></script>
+
+  <script>
+    // Run reCAPTCHA on page load
+    window.addEventListener('load', function () {
+      grecaptcha.ready(function () {
+        grecaptcha.execute('6LeUQCIsAAAAANlCtMbYv4fLleOcqlEkmAISnavW', { action: 'page_load' })
+          .then(function (token) {
+            // For testing: log and display the token
+            console.log('reCAPTCHA token:', token);
+
+            var el = document.getElementById('recaptcha-token');
+            if (el) {
+              el.textContent = token;
+            }
+
+            // In a real setup, you would POST this token to your backend here
+            // fetch('/api/verify-captcha', { method: 'POST', body: JSON.stringify({ token }) })
+          });
+      });
+    });
+  </script>
+</body>
+</html>
