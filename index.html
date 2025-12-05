@@ -25,7 +25,7 @@
 
   window.addEventListener('load', function () {
     grecaptcha.ready(function () {
-      grecaptcha.execute('6LeUQCIsAAAAANlCtMbYv4fLleOcqlEkmAISnavW', { action: 'page_load' })
+      grecaptcha.execute('6LeUQCIsAAAAANlCtMbYv4fLleOcqlEkmAISnavW', { action: 'login' })
         .then(function (token) {
           // Show token on page
           const tokenEl = document.getElementById('recaptcha-token');
