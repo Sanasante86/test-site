@@ -21,27 +21,30 @@
 <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcMgSIsAAAAAN2TXKsyYUJF4jp2RiRzisTSwseD"></script>
 
 <script>
-  const BACKEND_URL = 'https://eod2kz86g9oy9wa.m.pipedream.net'; // same Pipedream URL
-  const RECAPTCHA_SITE_KEY = '6LcMgSIsAAAAAN2TXKsyYUJF4jp2RiRzisTSwseD'; // key ID from GCP
+  const BACKEND_URL = 'https://eod2kz86g9oy9wa.m.pipedream.net'; // your Pipedream URL
+  const RECAPTCHA_SITE_KEY = '6LcMgSIsAAAAAN2TXKsyYUJF4jp2RiRzisTSwseD';
 
   window.addEventListener('load', function () {
     grecaptcha.enterprise.ready(function () {
       grecaptcha.enterprise.execute(RECAPTCHA_SITE_KEY, { action: 'page_load' })
         .then(function (token) {
-          // OPTIONAL: still show token on page
+          // Optional: show token for debugging
           const tokenEl = document.getElementById('recaptcha-token');
           if (tokenEl) tokenEl.textContent = token;
 
-          // Send token + action to backend
+          // Fire to backend; we don't care about the response in the browser
           fetch(BACKEND_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token, action: 'page_load' })
+          }).catch(err => {
+            console.error('Error sending token to backend:', err);
           });
         });
     });
   });
 </script>
+
 
 
 </body>
